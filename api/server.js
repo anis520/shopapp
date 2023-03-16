@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 import productCategoryRoute from "./routes/productCategory.js"
 import mongoDBConnect from './config/db.js'
+import { errorHandle } from './middlewares/errorHander.js'
 
 
 ///init express
@@ -28,12 +29,13 @@ app.use('/api/v1/product',productCategoryRoute)
 
 
 
- 
+
 //envroment variable
 const PORT =process.env.PORT || 5050;
 
 
- 
+app.use(errorHandle)
+
 
 
 //listen
