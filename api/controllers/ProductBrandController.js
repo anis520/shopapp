@@ -1,12 +1,12 @@
-import Category from "../models/Category.js";
+import Brand from "../models/Brand.js";
 import { createError } from "../utils/createError.js";
 
-// get all product catagory
-export const getAllProductCatagory = async (req, res,next) => {
+// get all product Brand
+export const getAllProductBrand = async (req, res,next) => {
   
  const err=createError('bad reasuts',400)
   try {
-    const data = await Category.find();
+    const data = await Brand.find();
     res.status(200).json({
       categories: data,
       message: "get all data success",
@@ -17,11 +17,11 @@ export const getAllProductCatagory = async (req, res,next) => {
   }
 };
 
-// find single product catagory
-export const getsigleProductCatagory = async (req, res,next) => {
+// find single product Brand
+export const getsigleProductBrand = async (req, res,next) => {
   try {
     const { slug } = req.params;
-    const data = await Category.findOne({ slug });
+    const data = await Brand.findOne({ slug });
  
     res.status(200).json({
       categories: data,
@@ -34,17 +34,17 @@ export const getsigleProductCatagory = async (req, res,next) => {
 };
 
 /// create sigle product catagroy
-export const createProductCatagory = async (req, res,next) => {
+export const createProductBrand = async (req, res,next) => {
   try {
     const { name, slug } = req.body;
-    const data = await Category.create({
+    const data = await Brand.create({
       name,
       slug,
       photo: req.file.filename, 
     });
     res.status(200).json({
-      category: data,
-      message: "Category added successfull",
+      Brand: data,
+      message: "Brand added successfull",
     });
   } catch (error) {
    next(error)
@@ -52,11 +52,11 @@ export const createProductCatagory = async (req, res,next) => {
 };
 
 /// update sigle product catagroy
-export const updateProductCatagory = async (req, res,next) => {
+export const updateProductBrand = async (req, res,next) => {
   try {
     const { id } = req.params;
     const { name, slug } = req.body;
-    const data = await Category.findByIdAndUpdate(
+    const data = await Brand.findByIdAndUpdate(
       id,
       {
         name,
@@ -65,8 +65,8 @@ export const updateProductCatagory = async (req, res,next) => {
       { new: true }
     );
     res.status(200).json({
-      category: data,
-      message: "Category updated successfull",
+      Brand: data,
+      message: "Brand updated successfull",
     });
   } catch (error) {
    next(error)
@@ -74,14 +74,14 @@ export const updateProductCatagory = async (req, res,next) => {
 };
 
 /// delete sigle product catagroy
-export const deleteProductCatagory = async (req, res,next) => {
+export const deleteProductBrand = async (req, res,next) => {
   try {
     const { id } = req.params;
 
-    const data = await Category.findByIdAndDelete(id);
+    const data = await Brand.findByIdAndDelete(id);
     res.status(200).json({
-      category: data,
-      message: "Category deleted successfull",
+      Brand: data,
+      message: "Brand deleted successfull",
     });
   } catch (error) {
    next(error)
