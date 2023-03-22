@@ -1,14 +1,17 @@
-import Category from "../models/Category.js";
+import MyTag  from "../models/Tag.js";
 import { createError } from "../utils/createError.js";
 import fs from'fs'
-// get all product catagory
-export const getAllProductCatagory = async (req, res,next) => {
+import Tag from "../models/Tag.js";
+// import {unlink} from'fs/promises'
+
+// get all product Tag
+export const getAllProductTag = async (req, res,next) => {
   
  const err=createError('bad reasuts',400)
   try {
-    const data = await Category.find();
+    const data = await Tag.find();
     res.status(200).json({
-      categories: data,
+      Tag: data,
       message: "get all data success",
     });
   } catch (error) {
@@ -17,14 +20,14 @@ export const getAllProductCatagory = async (req, res,next) => {
   }
 };
 
-// find single product catagory
-export const getsigleProductCatagory = async (req, res,next) => {
+// find single product Tag
+export const getsigleProductTag = async (req, res,next) => {
   try {
     const { slug } = req.params;
-    const data = await Category.findOne({ slug });
+    const data = await Tag.findOne({ slug });
  
     res.status(200).json({
-      categories: data,
+      Tag: data,
       message: "get single data success",
     });
   } catch (error) {
@@ -34,17 +37,17 @@ export const getsigleProductCatagory = async (req, res,next) => {
 };
 
 /// create sigle product catagroy
-export const createProductCatagory = async (req, res,next) => {
+export const createProductTag = async (req, res,next) => {
   try {
     const { name, slug } = req.body;
-    const data = await Category.create({
+    const data = await Tag.create({
       name,
-      slug,
-      photo: req.file.filename, 
+      slug
+      
     });
     res.status(200).json({
-      category: data,
-      message: "Category added successfull",
+      Tag: data,
+      message: "Tag added successfull",
     });
   } catch (error) {
    next(error)
@@ -52,21 +55,26 @@ export const createProductCatagory = async (req, res,next) => {
 };
 
 /// update sigle product catagroy
-export const updateProductCatagory = async (req, res,next) => {
+export const updateProductTag = async (req, res,next) => {
   try {
     const { id } = req.params;
     const { name, slug } = req.body;
-    const data = await Category.findByIdAndUpdate(
+    
+ 
+
+ 
+    const data = await Tag.findByIdAndUpdate(
       id,
       {
         name,
-        slug,
+        slug, 
+ 
       },
       { new: true }
     );
     res.status(200).json({
-      category: data,
-      message: "Category updated successfull",
+      Tag: data,
+      message: "Tag updated successfull",
     });
   } catch (error) {
    next(error)
@@ -74,14 +82,15 @@ export const updateProductCatagory = async (req, res,next) => {
 };
 
 /// delete sigle product catagroy
-export const deleteProductCatagory = async (req, res,next) => {
+export const deleteProductTag = async (req, res,next) => {
   try {
     const { id } = req.params;
 
-    const data = await Category.findByIdAndDelete(id);
+    const data = await Tag.findByIdAndDelete(id);
+ 
     res.status(200).json({
-      category: data,
-      message: "Category deleted successfull",
+      Tag: data,
+      message: "Tag deleted successfull",
     });
   } catch (error) {
    next(error)

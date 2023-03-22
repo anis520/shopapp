@@ -1,5 +1,7 @@
 import Brand from "../models/Brand.js";
 import { createError } from "../utils/createError.js";
+import fs from'fs'
+// import {unlink} from'fs/promises'
 
 // get all product Brand
 export const getAllProductBrand = async (req, res,next) => {
@@ -8,7 +10,7 @@ export const getAllProductBrand = async (req, res,next) => {
   try {
     const data = await Brand.find();
     res.status(200).json({
-      categories: data,
+      Brand: data,
       message: "get all data success",
     });
   } catch (error) {
@@ -24,7 +26,7 @@ export const getsigleProductBrand = async (req, res,next) => {
     const data = await Brand.findOne({ slug });
  
     res.status(200).json({
-      categories: data,
+      Brand: data,
       message: "get single data success",
     });
   } catch (error) {
@@ -56,11 +58,22 @@ export const updateProductBrand = async (req, res,next) => {
   try {
     const { id } = req.params;
     const { name, slug } = req.body;
+    
+    const sin = await Brand.findById(id);
+
+   if(req.file && sin ){
+
+     fs.unlink(`api/public/brand/${sin.photo}`,function(err){
+       if(err) return console.log(err);
+       console.log('file deleted successfully');
+      });  
+    }
     const data = await Brand.findByIdAndUpdate(
       id,
       {
         name,
-        slug,
+        slug, 
+         photo: req.file?req.file.filename : sin.photo, 
       },
       { new: true }
     );
@@ -79,6 +92,10 @@ export const deleteProductBrand = async (req, res,next) => {
     const { id } = req.params;
 
     const data = await Brand.findByIdAndDelete(id);
+      fs.unlink(`api/public/brand/${data.photo}`,function(err){
+      if(err) return console.log(err);
+      console.log('file deleted successfully');
+     });  
     res.status(200).json({
       Brand: data,
       message: "Brand deleted successfull",

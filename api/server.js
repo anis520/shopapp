@@ -4,9 +4,10 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 import productCategoryRoute from "./routes/productCategory.js"
 import productBrandRoute from "./routes/productBrand.js"
+import productTagRoute from "./routes/productTag.js"
 import mongoDBConnect from './config/db.js'
 import { errorHandle } from './middlewares/errorHander.js'
-
+ 
 
 ///init express
 const app=express()
@@ -28,6 +29,7 @@ app.use(express.static("api/public"))
 //routes
 app.use('/api/v1/product',productCategoryRoute)
 app.use('/api/v1/product',productBrandRoute)
+app.use('/api/v1/product',productTagRoute)
 
 
 
