@@ -39,31 +39,39 @@ export const getsigleProductTag = async (req, res,next) => {
 
 /// create sigle product catagroy
 export const createProduct = async (req, res,next) => {
-  // try {
-    const { name, slug } = req.body;
+  try {
+    let { name, slug,regular_price } = req.body;
+    slug =createSlug(slug)
 
-    // const data = await Tag.create( 
-    //   {
-    //   name,
-    //   slug
-      
-    // } 
+let galleryarray=[] 
+for (let i of req.files.gallary) {
+  galleryarray.push(i.filename)
+
+}
+
+
+console.log(req.files.photo);
+    const data = await Product.create( 
+      {
+      name,
+      slug,
+      gallary:galleryarray,
+      regular_price,
+      photo:req.files.photo[0].filename,
+
+
+    } 
     
-    // );
-// let s =createSlug(slug)
-console.log(req);
-console.log('his');
-res.json({     
-  slug:slug
-})
+    );
 
-  //   res.status(200).json({
-  //     Tag: data,
-  //     message: "Tag added successfull",
-  //   });
-  // } catch (error) { 
-  //  next(error)
-  // }
+ 
+    res.status(200).json({
+      Tag: data,
+      message: "product added successfull",
+    });
+  } catch (error) { 
+   next(error)
+  }
 };
 
 /// update sigle product catagroy

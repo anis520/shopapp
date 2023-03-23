@@ -14,7 +14,7 @@ const storage = multer.diskStorage({
         if(file.fieldname=="category-photo"){
 
             cb(null,"api/public/category")
-        }else if(file.fieldname=='product-photo'||file.fieldname=="product-gallery-photo"){
+        }else if(file.fieldname=='photo'||file.fieldname=="gallary"){
             
             cb(null,"api/public/product")
         
@@ -30,15 +30,15 @@ const storage = multer.diskStorage({
    
 export const productCategoryMulter=multer({storage}).single("category-photo")
 export const productbBrandMulter=multer({storage}).single("brand-photo")
-export const productMulter=multer({storage}).fields(
+export const productMulter=multer({storage}).fields([
 {
-    name:"product-photo",
+    name:"photo",
     maxCout:1
 
 },
 {
- name:'product-gallery-photo',
+ name:'gallary',
  maxCout:10
-}
+}]
 
 )
