@@ -1,18 +1,19 @@
-import MyTag  from "../models/Tag.js";
+import Product  from "../models/Product.js";
 import { createError } from "../utils/createError.js";
 import fs from'fs'
 import Tag from "../models/Tag.js";
+import { createSlug } from "../helper/slugCreate.js";
 // import {unlink} from'fs/promises'
 
 // get all product Tag
-export const getAllProductTag = async (req, res,next) => {
+export const getAllProduct = async (req, res,next) => {
   
  const err=createError('bad reasuts',400)
   try {
-    const data = await Tag.find();
+    const data = await Product.find();
     res.status(200).json({
       Tag: data,
-      message: "get all data success",
+      message: "get all product data success",
     });
   } catch (error) {
    
@@ -37,24 +38,32 @@ export const getsigleProductTag = async (req, res,next) => {
 };
 
 /// create sigle product catagroy
-export const createProductTag = async (req, res,next) => {
-  try {
+export const createProduct = async (req, res,next) => {
+  // try {
     const { name, slug } = req.body;
-    const data = await Tag.create(req.body
+
+    // const data = await Tag.create( 
     //   {
     //   name,
     //   slug
       
-    // }
+    // } 
     
-    );
-    res.status(200).json({
-      Tag: data,
-      message: "Tag added successfull",
-    });
-  } catch (error) {
-   next(error)
-  }
+    // );
+// let s =createSlug(slug)
+console.log(req);
+console.log('his');
+res.json({     
+  slug:slug
+})
+
+  //   res.status(200).json({
+  //     Tag: data,
+  //     message: "Tag added successfull",
+  //   });
+  // } catch (error) { 
+  //  next(error)
+  // }
 };
 
 /// update sigle product catagroy
