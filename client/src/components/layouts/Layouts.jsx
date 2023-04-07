@@ -6,11 +6,12 @@ import { Outlet } from 'react-router-dom';
 
 const Layouts = () => {
   return (
-     <div className=''> 
+     <div className='relative min-h-screen'> 
     <Header />
     <Navbar />
 
     <Outlet/>
+ 
     <Footer />
 
 
