@@ -7,7 +7,7 @@ function App() {
  
 <>
 
-<RouterProvider router={PublicRoute}/>
+<RouterProvider  router={PublicRoute}/>
 
 </>
   

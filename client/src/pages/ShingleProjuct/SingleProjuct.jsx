@@ -30,10 +30,10 @@ const handleQuantiy=(type)=>{
 
 
    return (
-    <div className='container pb-20 '>
+    <div className='container pb-20  z-10' onLoad={()=> window.scrollTo(0, 0)}>
     <p className='flex items-center gap-1  text-primary py-3 pl-2 cursor-pointer'><BsFillHouseFill/> <BsChevronRight/><span className='text-secondary hover:text-primary transition font-semibold'>Shop</span><BsChevronRight/>{id}</p>
 
-    <div className='grid grid-cols-2 pb-10 gap-5'>
+    <div className='grid  lg:grid-cols-2  pb-10 gap-5'>
             
             <div className='    p-1'>
   <ReactImageMagnify className=' border h-[450px]  w-full object-cover rounded-md' {...{
@@ -59,9 +59,9 @@ const handleQuantiy=(type)=>{
  
                 </div>
             </div>
-            <div className='space-y-3'>
+            <div className=' space-y-2 lg:space-y-3 '>
                    
-                   <p className='text-3xl font-semibold uppercase '>Sofa of best badroom</p>
+                   <p className=' text-2xl lg:text-3xl font-semibold uppercase '>Sofa of best badroom</p>
                     <p className='text-lg font-semibold'>Avallabity: <span className='text-green-500'>In Stock</span></p>   
                     <p  className='text-lg font-semibold'>Brand: <span className=''>aStock</span></p>   
                     <p  className='text-lg font-semibold'>Category: <span className=''>bcatat</span></p>   
@@ -70,7 +70,7 @@ const handleQuantiy=(type)=>{
                     <p className='font-semibold text-xl py-4 text-primary'>4500 Tk <span className='text-secondary ml-2 line-through'>8000 Tk</span></p>
                      <p className='font-semibold text-secondary'>loermfa-rotate-180 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Error, repellendus. z</p>   
                      <p className='text-lg pt-2  font-semibold'>Quantity</p>
-                     <p className='flex items-center w-24  justify-between'><button className=' transition-all'><IoIosAdd  onClick={()=>handleQuantiy('inc')}   className=' hover:scale-125 border h-7 w-7'/></button><span className='border h-7 w-7 text-center  font-semibold '>{quanity}</span><IoIosRemove onClick={()=>handleQuantiy('dnc')}  className='border h-7 w-7 hover:scale-125'/></p>
+                     <p className='flex items-center w-24  justify-between'><button className=' transition-all'><IoIosAdd  onClick={()=>handleQuantiy('inc')}   className=' hover:scale-125 border h-7 w-7'/></button><span className='border h-7 w-7 text-center  font-semibold '>{quanity}</span><button><IoIosRemove onClick={()=>handleQuantiy('dnc')}  className='border h-7 w-7 hover:scale-125'/></button></p>
                      <p className='space-x-3 py-6'><span className='bg-primary hover:bg-transparent hover:text-primary font-semibold transition-all   border-primary border-2 rounded-sm text-white px-3 py-1 '>Add to Card</span><span  className='border rounded-sm text-secondary font-semibold px-3 py-1 '>Wish list</span></p>
                      <hr />
             </div>

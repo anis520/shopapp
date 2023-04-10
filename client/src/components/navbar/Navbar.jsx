@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom'
 
 const Navbar = () => {
   return (
-    <div className='w-full bg-gray-700'>
+    <div className='w-full bg-gray-700 hidden lg:block'>
         <div className='container flex '>
 
           
          {/* catagrouis  */}
 
-           <div className='flex items-center gap-1 bg-primary text-white w-2/12 justify-center py-2 px-3 group relative cursor-pointer'> <BsList/> <span>All Catagries</span>
+           <div className='flex items-center z-20 gap-1 bg-primary text-white w-2/12 justify-center py-2 px-3 group relative cursor-pointer'> <BsList/> <span>All Catagries</span>
            
            <div className='  bg-white absolute top-10 left-0 divide-y shadow-md opacity-0 group-hover:opacity-100 transition duration-700 divide-gray-600 divide-dashed w-full hidden group-hover:block'>
 

@@ -7,6 +7,11 @@ import Home from '../pages/home/Home';
 import SingleProjuct from '../pages/ShingleProjuct/SingleProjuct';
 import Login from '../pages/Login/Login';
 import Regester from '../pages/Regester/Regester';
+import Dashbord from '../pages/Admin/subcomponents/Dashbord';
+import { Products } from '../pages/Admin/subcomponents/Products';
+import Brands from '../pages/Admin/subcomponents/Brands';
+import Tags from '../pages/Admin/subcomponents/Tags';
+import Categorys from '../pages/Admin/subcomponents/Categorys';
 
 
 
@@ -31,6 +36,35 @@ const PublicRoute=createBrowserRouter([
        {
         path:"/admin",
         element:<Admin/>,
+        children:[
+            {
+               index:true
+                ,element:<Dashbord/>
+            },
+            {
+                path:"dash"
+                ,element:<Dashbord/>
+            },
+            {
+                path:"products"
+                ,element:<Products/>
+            }
+            ,
+            {
+                path:"tags"
+                ,element:<Tags/>
+            }
+            ,
+            {
+                path:"categorys"
+                ,element:<Categorys/>
+            }
+            ,
+            {
+                path:"brands"
+                ,element:<Brands/>
+            }
+        ]
        
        },
        {

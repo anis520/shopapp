@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { BsChevronRight, BsFillHouseFill, BsFillSuitHeartFill, BsGrid3X2GapFill, BsListTask, BsSearchHeart, BsStar, BsStarFill } from 'react-icons/bs'
+import { Link } from 'react-router-dom'
 
 const Shop = () => {
   const [Layout,setLayout]=useState(true)
@@ -73,7 +74,10 @@ const Shop = () => {
                         <div className={`card-header relative group  ${!Layout&&'w-5/12'}` }>
                            <img   src="https://admin.regalfurniturebd.com/storage/uploads/fullsize/2022-05/sdc-201-sofa-cum-bed.jpg" alt="" />
                             <div className="icon absolute opacity-0 text-white gap-2 group-hover:opacity-100 bg-opacity-40  transition bg-black inset-0 flex items-center justify-center">
+                                <Link to={"/45"}>
                                   <BsSearchHeart className='h-6 w-6 rounded-full p-1 hover:bg-white hover:text-primary transition   bg-primary'/>
+                                </Link>
+                                
                                   <BsFillSuitHeartFill  className='h-6 w-6 rounded-full p-1  hover:bg-white hover:text-primary transition  bg-primary' />
                             </div>
                         </div>
@@ -86,7 +90,7 @@ const Shop = () => {
                              <BsStarFill className='text-yellow-300' />
                              <BsStar className='text-yellow-300' />
                               (4)</p>
-                            <button className={`border border-primary py-1 w-full text-primary hover:bg-primary hover:text-white transition font-semibold mt-2 ${!Layout && 'w-4/12 ml-4 rounded-md mb-2'}`}>Add to Cart</button>
+                            <button className={`border border-primary py-1 w-full text-primary hover:bg-primary hover:text-white transition font-semibold mt-2 ${!Layout && 'w-1/2 ml-3  rounded-md mb-2'}`}>Add to Cart</button>
                         </div>
 
                 </div>

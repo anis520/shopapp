@@ -7,7 +7,7 @@ const Home = () => {
     <>
     
 
-    <div className='w-full h-[400px] ' style={{backgroundImage:'url(https://wallpaperaccess.com/full/32822.jpg)',backgroundSize:'cover'}}>
+    <div className='w-full  h-[400px]   ' style={{backgroundImage:'url(https://wallpaperaccess.com/full/32822.jpg)',backgroundSize:'cover'}}>
     
 
     {/* banner part  */}
@@ -20,9 +20,9 @@ const Home = () => {
     </div>
 </div>
     {/* service part  */}
-    <div className='container flex items-center justify-center gap-8 p-16 '>
+    <div className='container grid grid-cols-1 lg:grid-cols-3 items-center justify-center gap-8 p-16 '>
       
-       <div className='border flex  border-primary py-3 px-6 gap-4 rounded-md'>
+       <div className='border flex   border-primary py-3 px-6 gap-4 rounded-md'>
            <div className=''>
                <BsTruck className='text-primary text-5xl'/>
            </div>
@@ -31,7 +31,7 @@ const Home = () => {
             <p className='text-sm '>Let your products for</p>
            </div>
        </div>
-       <div className='border flex  border-primary py-3 px-6 gap-4 rounded-md'>
+       <div className='border flex   border-primary py-3 px-6 gap-4 rounded-md'>
            <div className=''>
                <BsCurrencyDollar className='text-primary text-5xl'/>
            </div>
@@ -40,7 +40,7 @@ const Home = () => {
             <p className='text-sm '>Let your products for</p>
            </div>
        </div>
-       <div className='border flex  border-primary py-3 px-6 gap-4 rounded-md'>
+       <div className='border flex   border-primary py-3 px-6 gap-4 rounded-md'>
            <div className=''>
                <BsFillClockFill className='text-primary text-5xl'/>
            </div>
@@ -105,7 +105,7 @@ const Home = () => {
 
 
 {/* new aribale  */}
- <div className='container'>
+ <div className='container pb-24'>
 
    <p  className='font-semibold text-2xl py-8'>New Ariveal</p>
 
