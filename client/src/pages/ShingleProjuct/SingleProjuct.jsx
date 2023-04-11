@@ -1,15 +1,24 @@
 import React, { useState } from 'react'
 import { BsChevronRight, BsFillHouseFill } from 'react-icons/bs'
 import { useParams } from 'react-router-dom'
-import ReactImageMagnify, {}from 'react-image-magnify'
- 
+  
 import{IoIosAdd, IoIosRemove}from'react-icons/io'
+import { useSelector } from 'react-redux'
+import { useEffect } from 'react'
 
- 
+
 const SingleProjuct = () => {
-   const [img,setimg]=useState(0)
-   const [quanity,setquanity]=useState(0)
-    const {id}=useParams()
+   const {brands}=useSelector((state)=> state.shop)
+  
+  
+  const [img,setimg]=useState(0)
+  const [quanity,setquanity]=useState(0)
+  const {id}=useParams()
+  const data=brands.find((data) => data._id == id)
+ 
+
+
+  console.log(data);
 
     const allimg =['https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/81z81TBkBJL.jpg','https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/71sGhIn651L._AC_SL1500_.jpg','https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/71auGzeAdsL._AC_SS450_.jpg','https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/71dyyvVc5lL._AC_SX466_.jpg','https://a.1stdibscdn.com/finn-juhl-poet-sofa-by-house-of-finn-juhl-for-sale/f_14272/f_318551421671625028007/22792332_master.jpg?width=768']
 
@@ -36,7 +45,7 @@ const handleQuantiy=(type)=>{
     <div className='grid  lg:grid-cols-2  pb-10 gap-5'>
             
             <div className='    p-1'>
-  <ReactImageMagnify className=' border h-[450px]  w-full object-cover rounded-md' {...{
+  {/* <ReactImageMagnify className=' border h-[450px]  w-full object-cover rounded-md' {...{
     smallImage: {
          isFluidWidth: true,
         src: allimg[img]
@@ -47,8 +56,11 @@ const handleQuantiy=(type)=>{
         width: 1200,
         height: 1600
     }
-}} />  
+}} />   */}
  
+        <img src={allimg[img]} className='w-full' alt="" />
+
+
 
                 <div className='grid grid-cols-5 my-2 gap-3 mt-3'>
         <img  onClick={()=>setimg(0)} className={` ${img===0&&'border-primary'}  h-full  w-full border rounded-md object-cover`} src={`${allimg[0]}`} alt=""  />
@@ -63,7 +75,7 @@ const handleQuantiy=(type)=>{
                    
                    <p className=' text-2xl lg:text-3xl font-semibold uppercase '>Sofa of best badroom</p>
                     <p className='text-lg font-semibold'>Avallabity: <span className='text-green-500'>In Stock</span></p>   
-                    <p  className='text-lg font-semibold'>Brand: <span className=''>aStock</span></p>   
+                    <p  className='text-lg font-semibold'>Brand: <span className=''>{data.name}</span></p>   
                     <p  className='text-lg font-semibold'>Category: <span className=''>bcatat</span></p>   
                     <p  className='text-lg font-semibold'>Slug: <span className=''>bcatat-s-sgb-45s</span>
                     </p>

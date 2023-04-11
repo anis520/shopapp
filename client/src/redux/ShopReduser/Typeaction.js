@@ -1,0 +1,9 @@
+
+
+export const BRAND_REAUEST='BRAND_REQUEST'
+export const BRAND_SUCCESS='BRAND_SUCCESS'
+export const BRAND_FAILED='BRAND_FAILED'
+export const BRAND_CREATE='BRAND_CREATE'
+export const BRAND_DELETE='BRAND_DELETE'
+export const BRAND_EDIT='BRAND_EDIT'
+ 

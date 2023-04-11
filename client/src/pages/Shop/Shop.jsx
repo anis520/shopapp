@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import { BsChevronRight, BsFillHouseFill, BsFillSuitHeartFill, BsGrid3X2GapFill, BsListTask, BsSearchHeart, BsStar, BsStarFill } from 'react-icons/bs'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 const Shop = () => {
+  const {brands}=useSelector((state)=> state.shop)
+
   const [Layout,setLayout]=useState(true)
   return (
 <>
@@ -70,11 +73,21 @@ const Shop = () => {
  
       <div className={`grid ${Layout?'grid-cols-3':'grid-cols-1 '}   gap-5  `}>
 
-                <div className={`card rounded-md overflow-hidden  ${!Layout&& 'flex h-44  '}`}>
+
+{
+
+brands.map((item,index)=>
+
+{if(item.status==true){
+
+  return(
+    
+
+        <div key={index} className={`card rounded-md overflow-hidden  ${!Layout&& 'flex h-44  '}`}>
                         <div className={`card-header relative group  ${!Layout&&'w-5/12'}` }>
                            <img   src="https://admin.regalfurniturebd.com/storage/uploads/fullsize/2022-05/sdc-201-sofa-cum-bed.jpg" alt="" />
                             <div className="icon absolute opacity-0 text-white gap-2 group-hover:opacity-100 bg-opacity-40  transition bg-black inset-0 flex items-center justify-center">
-                                <Link to={"/45"}>
+                                <Link to={`/${item._id}`}>
                                   <BsSearchHeart className='h-6 w-6 rounded-full p-1 hover:bg-white hover:text-primary transition   bg-primary'/>
                                 </Link>
                                 
@@ -82,7 +95,7 @@ const Shop = () => {
                             </div>
                         </div>
                         <div className={`card-footer border ${!Layout &&'w-7/12 flex flex-col py-2 justify-between ' } `}>
-                            <p className='px-4 text-lg font-semibold hover:text-primary  transition cursor-pointer'>Badroom</p>
+                            <p className='px-4 text-lg font-semibold hover:text-primary  transition cursor-pointer'>Badroom ({item.name})</p>
                             <p className='px-4 text-primary font-semibold'>4500 tk<span className='ml-1 text-secondary line-through text-sm font-semibold '> 6500 tk</span></p>
                             <p className='text-secondary font-semibold px-4 flex items-center gap-1'>
                              <BsStarFill className='text-yellow-300' />
@@ -96,6 +109,13 @@ const Shop = () => {
                 </div>
 
  
+  )
+}
+})
+
+}
+
+        
  
 
 

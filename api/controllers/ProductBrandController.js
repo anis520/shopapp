@@ -2,6 +2,7 @@ import Brand from "../models/Brand.js";
 import { createError } from "../utils/createError.js";
  
 import { FileUnlink } from "../helper/unlinkFile.js";
+import { createSlug } from "../helper/slugCreate.js";
  
 // get all product Brand
 export const getAllProductBrand = async (req, res,next) => {
@@ -50,11 +51,12 @@ export const getsigleProductBrand = async (req, res,next) => {
 
 /// create sigle product catagroy
 export const createProductBrand = async (req, res,next) => {
+  console.log(req);
   try {
     const { name, slug } = req.body;
     const data = await Brand.create({
       name,
-      slug,
+     slug: createSlug(name),
       photo: req.file.filename, 
     });
     res.status(200).json({
@@ -70,7 +72,7 @@ export const createProductBrand = async (req, res,next) => {
 export const updateProductBrand = async (req, res,next) => {
   try {
     const { id } = req.params;
-    const { name, slug } = req.body;
+    const { name, slug,status } = req.body;
     
     const sin = await Brand.findById(id);
 
@@ -85,6 +87,7 @@ export const updateProductBrand = async (req, res,next) => {
       {
         name,
         slug, 
+        status,
          photo: req.file?req.file.filename : sin.photo, 
       },
       { new: true }

@@ -25,8 +25,8 @@ photo:{
  
 },
 status:{
-   type:String,
-   default:true
+   type:Boolean,
+   default:false
  
 },
 trash:{

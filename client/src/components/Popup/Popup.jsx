@@ -1,6 +1,5 @@
-import React from "react";
-
-const Popus = ({ action, child }) => {
+ 
+const Popup = ({ action,children }) => {
   return (
     <>
       {action.popup && (
@@ -12,7 +11,7 @@ const Popus = ({ action, child }) => {
             >
               x
             </span>
-            {child}
+            {children}
           </div>
         </div>
       )}
@@ -20,4 +19,4 @@ const Popus = ({ action, child }) => {
   );
 };
 
-export default Popus;
+export default Popup;
