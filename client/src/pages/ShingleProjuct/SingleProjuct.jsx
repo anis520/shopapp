@@ -57,7 +57,7 @@ const handleQuantiy=(type)=>{
         height: 1600
     }
 }} />   */}
- 
+  
         <img src={allimg[img]} className='w-full' alt="" />
 
 

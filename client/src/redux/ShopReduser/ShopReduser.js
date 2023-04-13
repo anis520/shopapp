@@ -42,10 +42,13 @@ switch (type) {
 
  
     case BRAND_EDIT:
+      state.brands[state.brands.findIndex((data)=> data._id ===payload._id)]=payload
+
+
         return{
             ...state,
             loader:false,
-            brands:[...state.brands.filter((data) => data._id !== payload.Brand._id),payload.Brand],
+            brands: state.brands,
             error:''
         }
 

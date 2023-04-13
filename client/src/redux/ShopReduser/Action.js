@@ -64,7 +64,25 @@ export const Delterbrand =(data)=>async(dispatch)=>{
 export const Editbrand =(id,data)=>async(dispatch)=>{
   await axios.put(`http://localhost:9000/api/v1/product/brand/${id}`,data).then((res)=>{
 
-   dispatch({type:BRAND_EDIT,payload:res.data})
+   dispatch({type:BRAND_EDIT,payload:res.data.Brand})
+
+
+}).catch((error)=>{console.log(error.message);})
+
+
+}
+
+
+
+
+
+
+//brand aciton s
+
+export const Editbrandstatus=(id,data)=>async(dispatch)=>{
+  await axios.patch(`http://localhost:9000/api/v1/product/brand/${id}`,{status:data}).then((res)=>{
+
+   dispatch({type:BRAND_EDIT,payload:res.data.Brand})
 
 
 }).catch((error)=>{console.log(error.message);})

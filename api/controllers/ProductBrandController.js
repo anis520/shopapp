@@ -82,13 +82,18 @@ export const updateProductBrand = async (req, res,next) => {
       FileUnlink(makePath)
   
     }
+   
+   
+
+
+ 
     const data = await Brand.findByIdAndUpdate(
       id,
       {
         name,
-        slug, 
         status,
-         photo: req.file?req.file.filename : sin.photo, 
+        slug:createSlug(name),
+        photo: req.file?req.file.filename : sin.photo, 
       },
       { new: true }
     );
@@ -100,6 +105,43 @@ export const updateProductBrand = async (req, res,next) => {
    next(error)
   }
 };
+
+
+
+
+/// update sigle product catagroy
+export const getsigleProductBrandstatus = async (req, res,next) => {
+  try {
+    const { id } = req.params;
+    const {status} = req.body;
+    
+
+
+ 
+    const data = await Brand.findByIdAndUpdate(
+      id,
+      {
+        status,
+      
+      },
+      { new: true }
+    );
+    res.status(200).json({
+      Brand: data,
+      message: "Brand status updated successfull",
+    });
+  } catch (error) {
+   next(error)
+  }
+};
+
+
+
+
+
+
+
+
 
 /// delete sigle product catagroy
 export const deleteProductBrand = async (req, res,next) => {

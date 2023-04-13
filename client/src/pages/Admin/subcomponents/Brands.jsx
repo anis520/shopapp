@@ -1,223 +1,283 @@
-import React, { useState } from 'react'
-import Popup from '../../../components/Popup/Popup'
-import { MdOutlineToggleOff, MdOutlineToggleOn, MdRestoreFromTrash, MdEditNote}from 'react-icons/md'
- import {useDispatch, useSelector}from 'react-redux' 
- import { Createbrand, Delterbrand, Editbrand } from '../../../redux/ShopReduser/Action'
-import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css';
-import Swal from 'sweetalert2'
+import React, { useState } from "react";
+import Popup from "../../../components/Popup/Popup";
+import {
+  MdOutlineToggleOff,
+  MdOutlineToggleOn,
+  MdRestoreFromTrash,
+  MdEditNote,
+} from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  Createbrand,
+  Delterbrand,
+  Editbrand,
+  Editbrandstatus,
+} from "../../../redux/ShopReduser/Action";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Swal from "sweetalert2";
 
- const Brands = () => {
-   const [popup,setpopup]=useState(false)
-    const [status,setstatus]=useState(false)
-  const [input,setinput]=useState('')
-  const [logo,setlogo]=useState(null)
-  const [alert,setalert]=useState(false)
-  
-  
-  const dispatch= useDispatch()
-  const {brands}=useSelector((state)=> state.shop)
-  
 
+
+
+const Brands = () => {
+  const [popup, setpopup] = useState({
+    type: "",
+    show: false,
+    edit:{}
+  });
+
+
+  const [input, setinput] = useState("");
+  const [logo, setlogo] = useState(null);
+
+  const dispatch = useDispatch();
+  const { brands } = useSelector((state) => state.shop);
+
+  const handlelogo = (e) => {
  
-  const handlelogo=(e)=>{
-   setlogo( e.target.files[0])
- }
-
-const handlecreatebrand=async(e)=>{
-e.preventDefault()
-
-
-let form_data = new FormData()
-form_data.append("name",input)
-form_data.append("slug",input)
-form_data.append("brand-photo",logo)
-
-if(!input || !logo){
-  toast(`all field are requred`)
-
-}else{
+      
+      setlogo(e.target.files[0]);
   
-dispatch(Createbrand(form_data))
-setinput('')
-setlogo(null)
-setpopup(false)
-toast(`Brand   created successfull`)
-
- }
+    
 
 
+  };
 
+  const handlecreatebrand = async (e) => {
+    
+    e.preventDefault();
+    let form_data = new FormData();
+    form_data.append("name", input);
+    form_data.append("slug", input);
+    form_data.append("brand-photo", logo);
 
- }
-
-
-
-
-
- 
-const handleDelete =(e)=>{
-
-  Swal.fire({
-    title: 'Are you sure?',
-    text: "You won't be able to revert this!",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, delete it!'
-  }).then((result) => {
-    if (result.isConfirmed) {
-      // Swal.fire(
-      //   'Deleted!',
-      //   'Your file has been deleted.',
-      //   'success'
-      // )
-       
-  dispatch(Delterbrand(e))
-  //  setalert(true)
-  toast("Deleted successfull!")
- 
-
+    if (!input || !logo) {
+      toast(`all field are requred`);
+    } else {
+      dispatch(Createbrand(form_data));
+      setinput("");
+      setlogo(null);
+      setpopup({ type: "create", show: false });
+      toast(`Brand   created successfull`);
     }
-  })
- 
+  };
 
+const handelupdatebrand=(e)=>{
 
-        
+  toast(`Brand upadate successfull`);
+  e.preventDefault();
+  let form_data = new FormData();
+  form_data.append("name", input);
+  form_data.append("slug", input);
+  form_data.append("brand-photo", logo);
+  dispatch(Editbrand(popup.edit._id,form_data));
+  setinput("");
+      setlogo(null);
+      setpopup({ type: "create", show: false });
 
-}
-
-
-
-
-const handleEdite=({_id,status,name})=>{
-
-  let data = new FormData()
-  data.append("status",!status)
-
-  dispatch(Editbrand(_id,data))
-
-toast(`Brand ${name} is now ${!status?'publised':' unpublish'}`)
+} 
 
 
 
-}
+  const handleDelete = (e) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Swal.fire(
+        //   'Deleted!',
+        //   'Your file has been deleted.',
+        //   'success'
+        // )
 
-const handleallupdate=(e)=>{
+        dispatch(Delterbrand(e));
+        //  setalert(true)
+        toast("Deleted successfull!");
+      }
+    });
+  };
 
+  const handlestatus = ({ _id, status, name }) => {
+    dispatch(Editbrandstatus(_id, !status));
+    toast(`Brand ${name} is now ${!status ? "publised" : " unpublish"}`);
+  };
 
-  setpopup(true)
-
- }
- 
- 
+  const handleditbtn = (e) => {
+    setpopup({ type: "edit", show: true ,edit:e});
+    setinput(e.name)
+  };
 
   return (
     <>
-    <div className='flex items-center  transition-all duration-150 justify-between p-2 '>
- 
-    <ToastContainer
-position="top-center"
-autoClose={2000}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover
-theme="light"
-/>
+      <div className="flex items-center  transition-all duration-150 justify-between p-2 ">
+        <ToastContainer
+          position="top-center"
+          autoClose={2000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
+
+        {/* create brand from  */}
+        <Popup action={{ popup, setpopup,setlogo,setinput }}>
+          <div className="w-80 space-y-2">
+            <p className="text-lg font-semibold capitalize">name :</p>
+
+            <input
+              value={input}
+              // placeholder={popup.edit}
+              onChange={(e) => setinput(e.target.value)}
+              className="w-full p-1 rounded-md border focus:outline-none"
+              type="text"
+            />
+
+            <p className="text-lg font-semibold capitalize pb-2">logo :</p>
+
+            <label htmlFor="logo">
+              <input
+                onChange={handlelogo}
+                id="logo"
+                className="w-full hidden p-1 rounded-md border focus:outline-none"
+                type="file"
+              />
 
 
- 
-{/* create brand from  */}
-    <Popup  action={{popup,setpopup}}  >
-    <div className='w-80 space-y-2'>
-      
-    <p className='text-lg font-semibold capitalize'>name :</p>
-   
-      <input value={input} onChange={(e)=>setinput(e.target.value)} className='w-full p-1 rounded-md border focus:outline-none' type="text" />
-             
-   
-    <p className='text-lg font-semibold capitalize pb-2'>logo :</p>
-   
-   
-   <label htmlFor="logo">
 
-    <input onChange={handlelogo} id='logo'  className='w-full hidden p-1 rounded-md border focus:outline-none' type="file" />
-    
-   
-    {logo?<img src={URL.createObjectURL(logo)} className='w-3/6   rounded-md h-32 object-cover' alt="" />:<img className='w-3/6   rounded-md h-32 object-cover' src='https://codemyui.com/wp-content/uploads/2015/09/cloud-file-upload-using-css.gif'/>}
-   
-   
-   
-   </label>
-    
-    
-    <button onClick={handlecreatebrand} className='text-white text-lg bg-blue-500 py-1 rounded-md font-semibold w-full text-center'>Save</button>   
-    </div> </Popup>
-      
 
- 
 
-    <p className='text-2xl text-secondary   font-bold'>Brands</p>
-          
-    <p className='text-lg text-secondary font-semibold cursor-pointer bg-gray-200 px-4 rounded-md ' onClick={()=>{setpopup(true)}}>Create +</p>
+
+
+              {logo ?(
+                <img
+                  src={URL.createObjectURL(logo)}
+                  className="w-3/6   rounded-md h-32 object-cover border"
+                  alt=""
+                />
+              ) : (
+                   
+                <div className="w-full relative">
+
+
+                  <img
+                  className="w-3/6   rounded-md h-32 object-cover border"
+                  src={ popup.type ==='create'?"https://codemyui.com/wp-content/uploads/2015/09/cloud-file-upload-using-css.gif":`http://localhost:9000/brand/${popup.edit.photo}`}    alt='logo'    />
+                 
+                 {popup.type==='edit'&&<p className="absolute bottom-0 left-0 text-sm bg-red-400 text-white px-1 rounded-md">Remove</p>}
+                 
+                  </div>
               
-    </div>
+              
+              )}
+            </label>
 
-    <div>
+            <button
+              onClick={ popup.type=='create'?handlecreatebrand:handelupdatebrand}
+              className="text-white text-lg bg-blue-500 py-1 rounded-md font-semibold w-full text-center"
+            >
+             {popup.type=='create'?'Save':'Update'}
+            </button>
+          </div>
+        </Popup>
 
-         <table className='w-11/12 mx-auto  mt-2'>
-                
-                <thead className='text-lg'>
+        <p className="text-2xl text-secondary   font-bold">Brands</p>
 
-                  <tr className='  border-y-2 border-black'>
-                    <th className='py-2  '>#</th>
-                    <th className='py-2  '>Name</th>
-                    <th className='py-2  '>Logo</th>
-                    <th className='py-2  '>Status</th>
-                    <th className='py-2  '>Action</th>
-     
-                  </tr>
-                </thead>
-                <tbody className=' font-semibold '>
+        <p
+          className="text-lg text-secondary font-semibold cursor-pointer bg-gray-200 px-4 rounded-md "
+          onClick={() => {
+            setpopup({ type: "create", show: true,edit:{} });
+          }}
+        >
+          Create +
+        </p>
+      </div>
 
-      
-  {
-    [...brands].map((item,index)=>(
+      <div>
+        <table className="w-11/12 mx-auto  mt-2">
+          <thead className="text-lg">
+            <tr className="  border-y-2 border-black">
+              <th className="py-2  ">#</th>
+              <th className="py-2  ">Name</th>
+              <th className="py-2  ">Logo</th>
+              <th className="py-2  ">Status</th>
+              <th className="py-2  ">Action</th>
+            </tr>
+          </thead>
+          <tbody className=" font-semibold ">
+            {[...brands].map((item, index) => (
+              <tr
+                key={index}
+                className="  copynone text-center py-2  odd:bg-gray-300 even:bg-white    border-b-2 border-black "
+              >
+                <td className="  ">{index + 1}</td>
+                <td className="   ">{item.name}</td>
+                <td className="   ">
+                  {" "}
+                  {item.photo ? (
+                    <img
+                      src={`http://localhost:9000/brand/${item.photo}`}
+                      className="h-8 mx-auto rounded-md w-8 my-2 object-cover"
+                      alt=""
+                    />
+                  ) : (
+                    <img
+                      src="https://www.apple.com/ac/structured-data/images/knowledge_graph_logo.png?202303141430"
+                      className="h-8 mx-auto rounded-md w-8 my-2 object-cover"
+                      alt=""
+                    />
+                  )}{" "}
+                </td>
+                <td className=" mt-2  flex items-center justify-center gap-2 ">
+                  {" "}
+                  <span
+                    className="cursor-pointer"
+                    onClick={() => {
+                      handlestatus(item);
+                    }}
+                  >
+                    {" "}
+                    {!item.status ? (
+                      <MdOutlineToggleOff className="mt-1 text-2xl  opacity-50" />
+                    ) : (
+                      <MdOutlineToggleOn className="   text-2xl text-primary  opacity-100 mt-1" />
+                    )}
+                  </span>
+                  publish
+                </td>
+                <td className="">
+                  <span className="flex items-center justify-center gap-2 text-xl ">
+                    <MdRestoreFromTrash
+                      onClick={() => {
+                        handleDelete(item._id);
+                      }}
+                      className="bg-red-500 rounded-sm hover:scale-110 transition-all hover:border border-black text-white cursor-pointer"
+                    />
+                    <MdEditNote
+                      onClick={() => {
+                        handleditbtn(item);
+                      }}
+                      className="hover:scale-110 transition-all hover:border border-black bg-yellow-300 rounded-sm text-black cursor-pointer"
+                    />
+                  </span>{" "}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
+  );
+};
 
-      <tr key={index} className='  copynone text-center py-2  odd:bg-gray-300 even:bg-white    border-b-2 border-black '>   
-                    <td className= '  '>{index+1}</td>
-                    <td className='   '>{item.name}</td>
-                    <td className='   '> {item.photo? <img  src={`http://localhost:9000/brand/${item.photo}`}  className='h-8 mx-auto rounded-md w-8 my-2 object-cover' alt="" />: <img  src="https://www.apple.com/ac/structured-data/images/knowledge_graph_logo.png?202303141430"  className='h-8 mx-auto rounded-md w-8 my-2 object-cover' alt="" />} </td>
-                    <td className=' mt-2  flex items-center justify-center gap-2 '> <span className='cursor-pointer'  onClick={()=>{handleEdite(item)}}>  {!item.status ?<MdOutlineToggleOff className='mt-1 text-2xl  opacity-50'/>: <MdOutlineToggleOn className='   text-2xl text-primary  opacity-100 mt-1'/>}</span>publish</td>
-                    <td className=''><span className='flex items-center justify-center gap-2 text-xl '><MdRestoreFromTrash onClick={()=>{handleDelete(item._id)}} className='bg-red-500 rounded-sm hover:scale-110 transition-all hover:border border-black text-white cursor-pointer' /><MdEditNote  onClick={()=>{handleallupdate(item)}}   className='hover:scale-110 transition-all hover:border border-black bg-yellow-300 rounded-sm text-black cursor-pointer'  /></span> </td>
-     
-                  </tr>
-    ))}
-      
- 
-
-
-       
-            
-                </tbody>
-
-
-
-         </table>
-
-
-    </div>
-
-
-
-
-     </>
-  )
-}
-
-export default Brands
+export default Brands;
