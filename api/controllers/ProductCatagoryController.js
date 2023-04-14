@@ -2,6 +2,10 @@ import Category from "../models/Category.js";
 import { createError } from "../utils/createError.js";
 import fs from'fs'
 // get all product catagory
+import { createSlug } from "../helper/slugCreate.js";
+import { FileUnlink } from "../helper/unlinkFile.js";
+
+
 export const getAllProductCatagory = async (req, res,next) => {
   
  const err=createError('bad reasuts',400)
@@ -39,7 +43,7 @@ export const createProductCatagory = async (req, res,next) => {
     const { name, slug } = req.body;
     const data = await Category.create({
       name,
-      slug,
+      slug:createSlug(name),
       photo: req.file.filename, 
     });
     res.status(200).json({
@@ -54,19 +58,28 @@ export const createProductCatagory = async (req, res,next) => {
 /// update sigle product catagroy
 export const updateProductCatagory = async (req, res,next) => {
   try {
-    const { id } = req.params;
-    const { name, slug } = req.body;
-    const data = await Category.findByIdAndUpdate(
+  const { id } = req.params;
+  const { name } = req.body;
+    
+  const sin = await Category.findById(id);
+ 
+   if(req.file && sin ){
+      let makePath=`api/public/category/${sin.photo}`
+      FileUnlink(makePath)
+  }
+  
+  const data = await Category.findByIdAndUpdate(
       id,
       {
         name,
-        slug,
+        slug:createSlug(name),
+         photo: req.file?req.file.filename : sin.photo, 
       },
       { new: true }
     );
     res.status(200).json({
       category: data,
-      message: "Category updated successfull",
+      message: "Catagory updated successfull",
     });
   } catch (error) {
    next(error)
@@ -82,6 +95,27 @@ export const deleteProductCatagory = async (req, res,next) => {
     res.status(200).json({
       category: data,
       message: "Category deleted successfull",
+    });
+  } catch (error) {
+   next(error)
+  }
+};
+
+/// update status of product catagroy 
+export const updateProductCatagoryStatus = async (req, res,next) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+    const data = await Category.findByIdAndUpdate(
+      id,
+      {
+ status
+      },
+      { new: true }
+    );
+    res.status(200).json({
+      category: data,
+      message: "Category status updated successfull",
     });
   } catch (error) {
    next(error)

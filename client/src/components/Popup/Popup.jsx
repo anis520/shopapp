@@ -4,7 +4,9 @@ const Popup = ({ action,children }) => {
 const handlecolse=()=>{
 
 action.setpopup({type:'',show:false,edit:{}})
-action.setlogo(null)
+
+action.setlogo && action.setlogo.setlogo(null)
+
 action.setinput('')
  
 }

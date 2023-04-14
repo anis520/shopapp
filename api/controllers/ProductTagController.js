@@ -2,6 +2,7 @@ import MyTag  from "../models/Tag.js";
 import { createError } from "../utils/createError.js";
 import fs from'fs'
 import Tag from "../models/Tag.js";
+import { createSlug } from "../helper/slugCreate.js";
 // import {unlink} from'fs/promises'
 
 // get all product Tag
@@ -40,12 +41,12 @@ export const getsigleProductTag = async (req, res,next) => {
 export const createProductTag = async (req, res,next) => {
   try {
     const { name, slug } = req.body;
-    const data = await Tag.create(req.body
-    //   {
-    //   name,
-    //   slug
+    const data = await Tag.create(
+      {
+      name,
+      slug:createSlug(slug)
       
-    // }
+    }
     
     );
     res.status(200).json({

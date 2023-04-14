@@ -19,7 +19,7 @@ slug:{
 },
  
 status:{
-   type:String,
+   type:Boolean,
    default:true
  
 },

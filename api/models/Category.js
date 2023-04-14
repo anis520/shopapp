@@ -25,7 +25,7 @@ photo:{
  
 },
 status:{
-   type:String,
+   type:Boolean,
    default:true
  
 },

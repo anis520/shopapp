@@ -117,8 +117,9 @@ const handelupdatebrand=(e)=>{
   return (
     <>
       <div className="flex items-center  transition-all duration-150 justify-between p-2 ">
+        
         <ToastContainer
-          position="top-center"
+          position="bottom-left"
           autoClose={2000}
           hideProgressBar={false}
           newestOnTop={false}
@@ -221,7 +222,7 @@ const handelupdatebrand=(e)=>{
                 className="  copynone text-center py-2  odd:bg-gray-300 even:bg-white    border-b-2 border-black "
               >
                 <td className="  ">{index + 1}</td>
-                <td className="   ">{item.name}</td>
+                <td className="w-[400px] overflow-x-hidden  ">{item.name}</td>
                 <td className="   ">
                   {" "}
                   {item.photo ? (
