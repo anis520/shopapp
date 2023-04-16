@@ -2,12 +2,15 @@ import React, { useState } from 'react'
 import { BsCartFill, BsFillHeartFill, BsFillTrashFill, BsPersonFill, BsSearch } from "react-icons/bs";
 import { useDispatch, useSelector } from 'react-redux';
 import{removewish,removecard}from '../../redux/ShopReduser/Action'
+import { Link } from 'react-router-dom';
 const Header = () => {
     const [search ,setsearch]=useState(false)
+    const [found ,setfound]=useState([])
     const [wish,setwish]=useState(false)
     const [cart,setcart]=useState(false)
-    const {cardnow,wishlist } = useSelector((state) => state.shop);
+    const {cardnow,wishlist ,products} = useSelector((state) => state.shop);
     const dispatch=useDispatch()
+    const [input,setinput]=useState('')
 
 
   const  handlecart=()=>{
@@ -32,9 +35,20 @@ const handleremovecard=(e)=>{
 dispatch(removecard(e))
 
 }
-  const seachhandeler=()=>{
+const seachhandeler=(e)=>{
+let m=e.target.value
+ 
+setinput(m)
 
-   setsearch(true)
+
+let find =products.filter(word => word.name == input)
+setfound(find)
+
+
+console.log(products);
+ console.log(find);
+
+ 
 
  
   }
@@ -55,52 +69,33 @@ dispatch(removecard(e))
        {/* seacch ietm  */}
      
         {
-            search &&(
+             [...found].length>0 &&(
 
   
-              <div className="searchdiv absolute  top-11 bg-white rounded-lg left-0 p flex flex-col gap-3  p-5 max-h-72 overflow-scroll border w-full">
-                   
-                   <div className='flex justify-between items-center'>
-                       <img src="https://media.4rgos.it/s/Argos/1187238_R_SET?w=270&h=270&qlt=75&fmt.jpeg.interlaced=true" className='w-24 border rounded-lg' alt="" />
+              <div className="searchdiv absolute  top-11 bg-white rounded-lg left-0 p flex flex-col gap-3  p-5 max-h-72  border w-full">
+
+             {
+             
+
+                <div className='flex justify-between items-center'>
+                       <img src={`http://localhost:9000/product/${found[0]?.photo}`} className='w-24 border rounded-lg' alt="" />
                        <div>
 
-                       <p>name of products </p>
+                       <p>{found[0]?.name} </p>
                        <p>
-                        <span className='mr-2'>111 tk</span>
-                        <span className='line-through'>455 tk</span>
+                        <span className='mr-2'>{found[0]?.regular_price}</span>
+                        <span className='line-through'>{found[0]?.regular_price+300} tk</span>
                         </p>
                        </div>
-                       <div>See more</div>
-
-                   </div>
-                   
-                   <div className='flex justify-between items-center'>
-                       <img src="https://media.4rgos.it/s/Argos/1187238_R_SET?w=270&h=270&qlt=75&fmt.jpeg.interlaced=true" className='w-24 border rounded-lg' alt="" />
                        <div>
-
-                       <p>name of products </p>
-                       <p>
-                        <span className='mr-2'>111 tk</span>
-                        <span className='line-through'>455 tk</span>
-                        </p>
-                       </div>
-                       <div>See more</div>
+                        <Link to={`/${found[0]._id}`}>
+                        <p className='bg-indigo-500 rounded-md text-white cursor-pointer px-2' onClick={()=>setfound([])} >See more</p>
+                        </Link>
+                        </div>
 
                    </div>
-                   
-                   <div className='flex justify-between items-center'>
-                       <img src="https://media.4rgos.it/s/Argos/1187238_R_SET?w=270&h=270&qlt=75&fmt.jpeg.interlaced=true" className='w-24 border rounded-lg' alt="" />
-                       <div>
-
-                       <p>name of products </p>
-                       <p>
-                        <span className='mr-2'>111 tk</span>
-                        <span className='line-through'>455 tk</span>
-                        </p>
-                       </div>
-                       <div>See more</div>
-
-                   </div>
+      
+                     }             
 
               </div>
                   )
