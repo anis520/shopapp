@@ -41,6 +41,7 @@ export const getsigleProductCatagory = async (req, res,next) => {
 export const createProductCatagory = async (req, res,next) => {
   try {
     const { name, slug } = req.body;
+    // console.log(req.body);
     const data = await Category.create({
       name,
       slug:createSlug(name),
@@ -117,7 +118,7 @@ export const updateProductCatagoryStatus = async (req, res,next) => {
       category: data,
       message: "Category status updated successfull",
     });
-  } catch (error) {
+  } catch (error) { 
    next(error)
   }
 };

@@ -23,7 +23,7 @@ short_desc:{
     trim:true,
 },
 long_desc:{
-    type:String,
+    type:String, 
 
     trim:true,
 },
@@ -80,7 +80,7 @@ tags:{
 
 
 status:{
-   type:String,
+   type:Boolean,
    default:true
  
 },

@@ -12,7 +12,7 @@ export const getAllProduct = async (req, res,next) => {
   try {
     const data = await Product.find();
     res.status(200).json({
-      Tag: data,
+      Product: data,
       message: "get all product data success",
     });
   } catch (error) {
@@ -40,23 +40,23 @@ export const getsigleProductTag = async (req, res,next) => {
 /// create sigle product catagroy
 export const createProduct = async (req, res,next) => {
   try {
-    let { name, slug,regular_price } = req.body;
-    slug =createSlug(slug)
+    let { name, slug,regular_price,stock,brand,catagorys,tags,desc } = req.body;
+    slug =createSlug(name)
+    // let galleryarray=[] 
+    // for (let i of req.files.gallary) {
+      //   galleryarray.push(i.filename)
+      
+      // }
+    let cat = catagorys.split(",")
+    let tag = tags.split(",")
 
-let galleryarray=[] 
-for (let i of req.files.gallary) {
-  galleryarray.push(i.filename)
-
-}
-
-
-console.log(req.files.photo);
+// console.log(req.files.photo);
     const data = await Product.create( 
       {
       name,
-      slug,
-      gallary:galleryarray,
-      regular_price,
+      slug,stock,brand,
+      // gallary:galleryarray,
+      regular_price:regular_price, catagorys:cat,tags:tag,long_desc:desc,short_desc:desc.slice(0,40),
       photo:req.files.photo[0].filename,
 
 
@@ -66,7 +66,7 @@ console.log(req.files.photo);
 
  
     res.status(200).json({
-      Tag: data,
+      Product: data,
       message: "product added successfull",
     });
   } catch (error) { 
@@ -117,3 +117,31 @@ export const deleteProductTag = async (req, res,next) => {
    next(error)
   }
 };
+
+
+
+
+
+export const productstatus=async(req,res,next)=>{
+
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+    const data = await Product.findByIdAndUpdate(
+      id,
+      {
+ status
+      },
+      { new: true }
+    );
+    console.log(req.body);
+    res.status(200).json({
+      product: data,
+      message: "product status updated successfull",
+    });
+  } catch (error) {
+   next(error)
+  }
+
+
+}

@@ -1,5 +1,5 @@
 import axios from "axios"
-import { BRAND_CREATE, BRAND_DELETE, BRAND_EDIT, BRAND_FAILED, BRAND_REAUEST, BRAND_SUCCESS, CATAGORY_CREATE, CATAGORY_DELETE, CATAGORY_FAILED, CATAGORY_REAUEST, CATAGORY_SUCCESS ,CATAGORY_EDIT, TAG_REAUEST, TAG_SUCCESS, TAG_FAILED, TAG_CREATE, TAG_EDIT, TAG_DELETE} from "./Typeaction";
+import { BRAND_CREATE, BRAND_DELETE, BRAND_EDIT, BRAND_FAILED, BRAND_REAUEST, BRAND_SUCCESS, CATAGORY_CREATE, CATAGORY_DELETE, CATAGORY_FAILED, CATAGORY_REAUEST, CATAGORY_SUCCESS ,CATAGORY_EDIT, TAG_REAUEST, TAG_SUCCESS, TAG_FAILED, TAG_CREATE, TAG_EDIT, TAG_DELETE, PRODUCT_REAUEST, PRODUCT_SUCCESS, PRODUCT_FAILED, PRODUCT_CREATE, PRODUCT_EDIT_STATUS, WISHLIST_CREATE, WISHLIST_REMOVE, CARDNOW_CREATE, CARDNOW_REMOVE} from "./Typeaction";
 
 
 
@@ -241,3 +241,94 @@ export const Deletetag =(data)=>async(dispatch)=>{
 
 
 
+
+
+
+
+
+// get all brand aciton 
+
+export const getallProducts =()=>async(dispatch)=>{
+ 
+  try{
+    dispatch({type:PRODUCT_REAUEST}) 
+    await axios.get('http://localhost:9000/api/v1/product/').then((res)=>{
+      dispatch({type:PRODUCT_SUCCESS,payload:res.data.Product})
+    })
+  }catch(e){
+    dispatch({type:PRODUCT_FAILED,payload:e.response.message})
+  }
+  }
+  
+  
+  
+  
+  
+  
+  // create a products aciton 
+  
+  export const  Createproducts=(data)=>async(dispatch)=>{
+    await axios.post('http://localhost:9000/api/v1/product/',data).then((res)=>{
+      console.log(data);
+ 
+     dispatch({type:PRODUCT_CREATE,payload:res.data.Product})
+  
+  
+  }).catch((error)=>{console.log(error.message)})
+  
+  
+  }
+  
+  
+  
+  // update products status 
+  export const updatestatus=(data)=>async(dispatch)=>{
+
+    await axios.patch(`http://localhost:9000/api/v1/product/${data._id}`,{status:!data.status}).then((res)=>{
+      // console.log(data);
+ 
+     dispatch({type:PRODUCT_EDIT_STATUS,payload:res.data.product})
+  
+  
+  }).catch((error)=>{console.log(error.message)})
+  
+
+  }
+
+
+//wish list 
+
+
+export const CreatewishList=(data)=>(dispatch)=>{
+
+
+   dispatch({type:WISHLIST_CREATE,payload:data})
+
+
+}
+
+export const removewish=(data)=>(dispatch)=>{
+
+
+   dispatch({type:WISHLIST_REMOVE,payload:data})
+
+
+}
+//wish card 
+
+
+export const Createcardnow=(data)=>(dispatch)=>{
+
+
+   dispatch({type:CARDNOW_CREATE,payload:data})
+
+
+}
+
+export const removecard=(data)=>(dispatch)=>{
+
+
+   dispatch({type:CARDNOW_REMOVE,payload:data})
+
+
+}

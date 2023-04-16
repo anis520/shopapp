@@ -1,8 +1,11 @@
 import React from 'react'
 import { BsFillLampFill, BsList } from 'react-icons/bs'
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom'
 
 const Navbar = () => {
+  const {categorys } = useSelector((state) => state.shop);
+
   return (
     <div className='w-full bg-gray-700'>
         <div className='container flex '>
@@ -14,10 +17,11 @@ const Navbar = () => {
            
            <div className='  bg-white absolute top-10 left-0 divide-y shadow-md opacity-0 group-hover:opacity-100 transition duration-700 divide-gray-600 divide-dashed w-full hidden group-hover:block'>
 
-                    <div className='p-2 text-center text-secondary hover:bg-gray-200 flex justify-center gap-4 items-center cursor-pointer'><BsFillLampFill/><span>Lamp</span></div>
-                    <div className='p-2 text-center text-secondary hover:bg-gray-200 flex justify-center gap-4 items-center cursor-pointer'><BsFillLampFill/><span>Lamp</span></div>
-                    <div className='p-2 text-center text-secondary hover:bg-gray-200 flex justify-center gap-4 items-center cursor-pointer'><BsFillLampFill/><span>Lamp</span></div>
-                    <div className='p-2 text-center text-secondary hover:bg-gray-200 flex justify-center gap-4 items-center cursor-pointer'><BsFillLampFill/><span>Lamp</span></div>
+            {categorys.map((item,index)=>(
+
+              
+                     <div key={index} className='p-2 text-center text-secondary hover:bg-gray-200 flex justify-center gap-4 items-center cursor-pointer'><BsFillLampFill/><span>{item.name}</span></div>
+              ))}
  
      
  

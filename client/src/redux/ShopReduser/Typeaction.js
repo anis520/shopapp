@@ -25,3 +25,24 @@ export const TAG_FAILED='TAG_FAILED'
 export const TAG_CREATE='TAG_CREATE'
 export const TAG_DELETE='TAG_DELETE'
 export const TAG_EDIT='TAG_EDIT'
+
+
+
+// Brand all Action types 
+export const PRODUCT_REAUEST='PRODUCT_REQUEST'
+export const PRODUCT_SUCCESS='PRODUCT_SUCCESS'
+export const PRODUCT_FAILED='PRODUCT_FAILED'
+export const PRODUCT_CREATE='PRODUCT_CREATE'
+export const PRODUCT_DELETE='PRODUCT_DELETE'
+export const PRODUCT_EDIT='PRODUCT_EDIT'
+export const PRODUCT_EDIT_STATUS='PRODUCT_EDIT_STATUS'
+
+
+
+
+// wishlist and cardnow
+
+export const WISHLIST_CREATE ='WISHLIST_CREATE'
+export const WISHLIST_REMOVE ='WISHLIST_REMOVE'
+export const CARDNOW_REMOVE ='CARDNOW_REMOVE'
+export const CARDNOW_CREATE ='CARDNOW_CREATE'

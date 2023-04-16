@@ -50,8 +50,7 @@ const Catagries = () => {
     form_data.append("name", input);
     form_data.append("slug", input);
     form_data.append("category-photo", logo);
-
-    if (!input || !logo) {
+     if (!input || !logo) {
       toast(`all field are requred`);
     } else {
       dispatch(Createcategory(form_data));

@@ -1,5 +1,6 @@
 export const inisialstate={
-
+cardnow:[],
+wishlist:[],
 categorys:[],
 tags:[],
 brands:[],

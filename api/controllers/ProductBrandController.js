@@ -140,7 +140,7 @@ export const getsigleProductBrandstatus = async (req, res,next) => {
 
 
 
-
+ 
 
 
 /// delete sigle product catagroy

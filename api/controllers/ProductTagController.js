@@ -47,7 +47,7 @@ export const createProductTag = async (req, res,next) => {
       slug:createSlug(slug)
       
     }
-    
+     
     );
     res.status(200).json({
       Tag: data,

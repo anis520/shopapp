@@ -1,5 +1,5 @@
 import { inisialstate } from "./Inisialstate"
-import { BRAND_CREATE, BRAND_DELETE, BRAND_EDIT, BRAND_FAILED, BRAND_REAUEST, BRAND_SUCCESS, CATAGORY_CREATE, CATAGORY_DELETE, CATAGORY_EDIT, CATAGORY_FAILED, CATAGORY_REAUEST, CATAGORY_SUCCESS, TAG_CREATE, TAG_DELETE, TAG_EDIT, TAG_FAILED, TAG_REAUEST, TAG_SUCCESS } from "./Typeaction";
+import { BRAND_CREATE, BRAND_DELETE, BRAND_EDIT, BRAND_FAILED, BRAND_REAUEST, BRAND_SUCCESS, CARDNOW_CREATE, CARDNOW_REMOVE, CATAGORY_CREATE, CATAGORY_DELETE, CATAGORY_EDIT, CATAGORY_FAILED, CATAGORY_REAUEST, CATAGORY_SUCCESS, PRODUCT_CREATE, PRODUCT_EDIT_STATUS, PRODUCT_FAILED, PRODUCT_REAUEST, PRODUCT_SUCCESS, TAG_CREATE, TAG_DELETE, TAG_EDIT, TAG_FAILED, TAG_REAUEST, TAG_SUCCESS, WISHLIST_CREATE, WISHLIST_REMOVE } from "./Typeaction";
  
 
 const ShopReduser =(state=inisialstate,{type,payload})=>{
@@ -23,6 +23,7 @@ switch (type) {
             brands:[],
             error:payload
         }
+
     case BRAND_CREATE:
         return{
             ...state,
@@ -146,6 +147,65 @@ switch (type) {
                 tags:state.tags.filter((data) => data._id !== payload.Tag._id),
                 error:''
             }
+    case PRODUCT_REAUEST:
+        return{
+            ...state,
+            loader:true
+        }
+    case PRODUCT_SUCCESS:
+        return{
+            ...state,
+            loader:false,
+            products:payload
+        }
+    case PRODUCT_FAILED:
+        return{
+            ...state,
+            loader:false,
+              products:[],
+            error:payload
+        }
+        case PRODUCT_CREATE:
+            return{
+                ...state,
+                loader:false,
+                products:[...state.products,payload],
+                error:payload
+            }
+         case PRODUCT_EDIT_STATUS:
+            state.products[state.products.findIndex((data)=> data._id ===payload._id)]=payload
+  
+  
+            return{
+                ...state,
+                loader:false,
+                products: state.products,
+                error:''
+            }
+ 
+         case WISHLIST_CREATE:
+            return{
+                ...state,
+                 wishlist:[...state.wishlist,payload]
+            }
+         case WISHLIST_REMOVE:
+            return{
+                ...state,
+                 wishlist:state.wishlist.filter((data) => data._id !== payload._id),
+            }
+   
+         case CARDNOW_CREATE:
+            return{
+                ...state,
+                 cardnow:[...state.cardnow,payload]
+            } 
+                 case CARDNOW_REMOVE:
+            return{
+                ...state,
+                 cardnow:state.cardnow.filter((data) => data._id !== payload._id),
+            }
+ 
+
 
     default:
         return state

@@ -8,13 +8,13 @@ import { useEffect } from 'react'
 
 
 const SingleProjuct = () => {
-   const {brands}=useSelector((state)=> state.shop)
+   const {products}=useSelector((state)=> state.shop)
   
   
   const [img,setimg]=useState(0)
   const [quanity,setquanity]=useState(0)
   const {id}=useParams()
-  const data=brands.find((data) => data._id == id)
+  const data=products.find((data) => data._id == id)
  
 
 
@@ -58,7 +58,7 @@ const handleQuantiy=(type)=>{
     }
 }} />   */}
   
-        <img src={allimg[img]} className='w-full' alt="" />
+        <img src={`http://localhost:9000/product/${data.photo}`} className='w-full object-cover border rounded-md h-3/6' alt="" />
 
 
 
@@ -73,14 +73,14 @@ const handleQuantiy=(type)=>{
             </div>
             <div className=' space-y-2 lg:space-y-3 '>
                    
-                   <p className=' text-2xl lg:text-3xl font-semibold uppercase '>Sofa of best badroom</p>
-                    <p className='text-lg font-semibold'>Avallabity: <span className='text-green-500'>In Stock</span></p>   
-                    <p  className='text-lg font-semibold'>Brand: <span className=''>{data.name}</span></p>   
-                    <p  className='text-lg font-semibold'>Category: <span className=''>bcatat</span></p>   
-                    <p  className='text-lg font-semibold'>Slug: <span className=''>bcatat-s-sgb-45s</span>
+                   <p className=' text-2xl lg:text-3xl font-semibold uppercase '>{data.name}</p>
+                    <p className='text-lg font-semibold'>Avallabity: {data.stock>0?<span className='text-green-500'>In Stock</span>:<span className='text-red-500'>Out of Stock</span>}</p>   
+                    <p  className='text-lg font-semibold'>Brand: <span className=''>{data.brand}</span></p>   
+                    <p  className='text-lg font-semibold'>Category: <span className=''>{data.catagorys}</span></p>   
+                    <p  className='text-lg font-semibold'>Slug: <span className=''>{data.slug}</span>
                     </p>
-                    <p className='font-semibold text-xl py-4 text-primary'>4500 Tk <span className='text-secondary ml-2 line-through'>8000 Tk</span></p>
-                     <p className='font-semibold text-secondary'>loermfa-rotate-180 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Error, repellendus. z</p>   
+                    <p className='font-semibold text-xl py-4 text-primary'>{data.regular_price} Tk <span className='text-secondary ml-2 line-through'>{data.regular_price+200} Tk</span></p>
+                     <p className='font-semibold text-secondary'>{data.short_desc}</p>   
                      <p className='text-lg pt-2  font-semibold'>Quantity</p>
                      <p className='flex items-center w-24  justify-between'><button className=' transition-all'><IoIosAdd  onClick={()=>handleQuantiy('inc')}   className=' hover:scale-125 border h-7 w-7'/></button><span className='border h-7 w-7 text-center  font-semibold '>{quanity}</span><button><IoIosRemove onClick={()=>handleQuantiy('dnc')}  className='border h-7 w-7 hover:scale-125'/></button></p>
                      <p className='space-x-3 py-6'><span className='bg-primary hover:bg-transparent hover:text-primary font-semibold transition-all   border-primary border-2 rounded-sm text-white px-3 py-1 '>Add to Card</span><span  className='border rounded-sm text-secondary font-semibold px-3 py-1 '>Wish list</span></p>
@@ -92,7 +92,7 @@ const handleQuantiy=(type)=>{
     <div>
        <p className='text-2xl text-secondary font-bold py-4'>Product details</p>
      <hr />
-        <p className='pt-5'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur deserunt natus dolorum velit nisi laborum, quidem blanditiis nesciunt magnam tempore architecto sunt suscipit modi accusamus sequi reprehenderit facere, vero nemo!</p>
+        <p className='pt-5'>{data.long_desc}</p>
     </div>
 
 

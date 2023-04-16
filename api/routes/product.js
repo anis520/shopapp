@@ -1,5 +1,5 @@
 import express from 'express'
-import { getAllProduct,createProduct } from '../controllers/ProductController.js'
+import { getAllProduct,createProduct, productstatus } from '../controllers/ProductController.js'
 import { productCategoryMulter, productMulter } from '../utils/multer.js'
   
 
@@ -14,6 +14,7 @@ const router=express.Router()
 // router.route('/').get(getAllProduct).post(createProduct)
 router.get('/',getAllProduct)
 router.post('/',productMulter,createProduct)
+router.patch('/:id',productstatus)
 
 // router.put('/tag/:id',updateProductTag)
 // router.delete('/tag/:id',deleteProductTag)
